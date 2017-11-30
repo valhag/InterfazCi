@@ -144,6 +144,112 @@ namespace InterfazCi
         }
 
 
+        private string mLlenarPolizasMicroplaneSQL()
+        {
+            string aNombreArchivo = botonExcel1.mRegresarNombre();
+            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + aNombreArchivo + ";Extended Properties='Excel 12.0 xml;HDR=YES;'");
+
+            conn.Open();
+            System.Data.OleDb.OleDbCommand cmd = new OleDbCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "SELECT * FROM [Sheet1$]";
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ee)
+            {
+                return ee.Message;
+            }
+
+            long xxx;
+            xxx = 1000000;
+
+
+            System.Data.OleDb.OleDbDataReader dr;
+            dr = cmd.ExecuteReader();
+            Boolean noseguir = false;
+            _RegPolizas.Clear();
+            int ifolio = 0;
+            int lfolio = -1;
+            if (dr.HasRows)
+                while (noseguir == false)
+                {
+                    dr.Read();
+
+                    try
+                    {
+                        ifolio = int.Parse(dr[1].ToString());
+                    }
+                    catch (Exception e)
+                    {
+                        _RegPolizas.Add(_Poliza);
+                        noseguir = true;
+                        break;
+                    }
+                    if (ifolio != lfolio)
+                    {
+                        if (lfolio != -1)
+                            _RegPolizas.Add(_Poliza);
+                        _Poliza = null;
+                        _Poliza = new Poliza();
+                        _Poliza.Folio = ifolio;
+                        switch (dr["Jrnl"].ToString().Trim())
+                        {
+                            case "160":
+                                _Poliza.TipoPol = 2;
+                                //_Poliza.TipoPol = int(SDKCONTPAQNGLib.ETIPOPOLIZA.TIPO_INGRESOS);
+                                break;
+                            case "165":
+                                _Poliza.TipoPol = 1;
+                                break;
+                            case "200":
+                                _Poliza.TipoPol = 3;
+                                break;
+                            case "310":
+                                _Poliza.TipoPol = 3;
+                                break;
+
+                        }
+
+
+                        string lfecha = dr["Date"].ToString().Trim();
+                        int primerdiagonal = lfecha.IndexOf('/', 0);
+                        int segundadiagonal = lfecha.IndexOf('/', primerdiagonal + 1);
+
+
+                        _Poliza.Concepto = dr["Vendor"].ToString().Trim();
+
+                        string ldia = lfecha.Substring(0, primerdiagonal);
+
+                        string lanio = lfecha.Substring(segundadiagonal + 1);
+                        string lmes = lfecha.Substring(primerdiagonal + 1, segundadiagonal - (primerdiagonal + 1));
+                        _Poliza.FechaAlta = DateTime.Parse(ldia.ToString() + "/" + lmes.ToString() + "/" + lanio.ToString());
+                        lfolio = _Poliza.Folio;
+                        //_Poliza.TipoPol = 1; 
+                    }
+
+                    MovPoliza lRegmovto = new MovPoliza();
+                    lRegmovto.cuenta = dr["Account"].ToString();
+                    string credito = dr["Credit"].ToString();
+                    if (credito == "")
+                        lRegmovto.credito = 0;
+                    else
+                        lRegmovto.credito = decimal.Parse(credito);
+
+                    string debito = dr["Debit"].ToString();
+                    if (debito == "")
+                        lRegmovto.debito = 0;
+                    else
+                        lRegmovto.debito = decimal.Parse(debito);
+
+                    lRegmovto.concepto = dr["Your reference"].ToString();
+                    _Poliza._RegMovtos.Add(lRegmovto);
+                    _Poliza.sMensaje = "";
+
+                }
+            return "";
+        }
         private string  mLlenarPolizasGranVision()
         {
             string aNombreArchivo = botonExcel1.mRegresarNombre();
@@ -446,13 +552,13 @@ namespace InterfazCi
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (Cadenaconexion == "")
+        /*    if (Cadenaconexion == "")
                 ciCompanyList11.Populate(Cadenaconexion);
             else
             {
                 Form4 x = new Form4();
                 x.Show();
-            }
+            }*/
         }
 
         private void Form1_Load_1(object sender, EventArgs e)
@@ -474,7 +580,8 @@ namespace InterfazCi
 
             //if (DateTime.Today > zz)
              //   return;
-            string error = mLlenarPolizas();
+            //string error = mLlenarPolizas();
+            string error = mLlenarPolizasMicroplaneSQL();
             //string error = mLlenarPolizasGranVision();
             if (error != "")
             {
@@ -491,6 +598,7 @@ namespace InterfazCi
         }
         private void Form1_Shown(object sender, EventArgs e)
         {
+            
             if (Cadenaconexion != "")
             {
                 ciCompanyList11.Populate(Cadenaconexion);
@@ -506,6 +614,7 @@ namespace InterfazCi
                 botonExcel1.mSetNombre(Archivo);
             //this.Text = " Interfaz Microplane Contabilidad " + this.ProductVersion;
             this.Text = " Interfaz Gran Vision Contabilidad " + this.ProductVersion;
+             
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
