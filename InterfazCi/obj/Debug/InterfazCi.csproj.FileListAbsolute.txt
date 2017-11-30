@@ -1,0 +1,15 @@
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\bin\Debug\InterfazCi.exe.config
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\bin\Debug\InterfazCi.exe
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\bin\Debug\InterfazCi.pdb
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\bin\Debug\controles.pdb
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\bin\Debug\Interop.SDKCONTPAQNGLib.dll
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\obj\Debug\InterfazCi.csprojResolveAssemblyReference.cache
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\obj\Debug\Interop.SDKCONTPAQNGLib.dll
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\obj\Debug\InterfazCi.csproj.ResolveComReference.cache
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\obj\Debug\InterfazCi.Form1.resources
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\obj\Debug\InterfazCi.Form4.resources
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\obj\Debug\InterfazCi.ListaEmpresas.resources
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\obj\Debug\InterfazCi.Properties.Resources.resources
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\obj\Debug\InterfazCi.csproj.GenerateResource.Cache
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\obj\Debug\InterfazCi.exe
+C:\Users\TOSHIBA\Documents\clientes\binstala\InterfazCi\InterfazCi\obj\Debug\InterfazCi.pdb
