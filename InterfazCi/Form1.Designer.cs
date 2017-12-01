@@ -36,13 +36,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(8, 147);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(442, 27);
             this.button1.TabIndex = 0;
@@ -111,21 +111,21 @@
             this.comboBox1.Size = new System.Drawing.Size(96, 21);
             this.comboBox1.TabIndex = 10;
             // 
-            // comboBox2
+            // textBox2
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(98, 106);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(97, 21);
-            this.comboBox2.TabIndex = 11;
+            this.textBox2.Location = new System.Drawing.Point(99, 108);
+            this.textBox2.MaxLength = 4;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 11;
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(463, 186);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -134,7 +134,7 @@
             this.Controls.Add(this.botonExcel1);
             this.Controls.Add(this.ciCompanyList11);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
@@ -158,7 +158,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

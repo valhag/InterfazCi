@@ -51,7 +51,7 @@ namespace InterfazCi
             if (mValida())
             {
                 Properties.Settings.Default.server = txtServer.Text;
-                Properties.Settings.Default.database = txtBD.Text;
+                //Properties.Settings.Default.database = txtBD.Text;
                 Properties.Settings.Default.user = txtUser.Text;
                 Properties.Settings.Default.password = txtPass.Text;
 
@@ -71,7 +71,7 @@ namespace InterfazCi
         private void Form4_Load(object sender, EventArgs e)
         {
             txtServer.Text = Properties.Settings.Default.server  ;
-            txtBD.Text = Properties.Settings.Default.database;
+            //txtBD.Text = Properties.Settings.Default.database;
             txtUser.Text = Properties.Settings.Default.user ;
             txtPass.Text = Properties.Settings.Default.password ;
         }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.OleDb;
+using System.Data.Odbc;
 
 namespace InterfazCi
 {
@@ -146,7 +147,67 @@ namespace InterfazCi
 
         private string mLlenarPolizasMicroplaneSQL()
         {
-            string aNombreArchivo = botonExcel1.mRegresarNombre();
+            string dsn = textBox1.Text;
+
+            dsn = "DSN=" + textBox1.Text;
+            dsn = "DSN=" + textBox1.Text + ";UID=Reports;Pwd=;";
+            OdbcConnection DbConnection = new OdbcConnection(dsn);
+            try
+            {
+                DbConnection.Open();
+            }
+            catch (Exception eeeee)
+            {
+                return "";
+            }
+
+
+            int mes = 0;
+
+            switch (comboBox1.Text)
+            {
+                case "Enero": mes =1; break;
+                case "Febrero": mes =2; break;
+                case "Marzo": mes =3; break;
+                case "Abril": mes =4; break;
+                case "Mayo": mes =5; break;
+                case "Junio": mes =6; break;
+                case "Julio": mes =7; break;
+                case "Agosto": mes =8; break;
+                case "Septiembre": mes =9; break;
+                case "Octubre": mes =10; break;
+                case "Noviembre": mes =11; break;
+                case "Diciembre": mes =12; break;
+            }
+
+
+
+            string ssql = " SELECT GBKMUT.dagbknr as Jrnl, GBKMUT.bkstnr as [Entry no.], ltrim(str(year(GBKMUT.datum)))+replace(str(month(GBKMUT.datum),2),' ','0')+replace(str(day(GBKMUT.datum),2),' ','0') as Date, " +
+                "GBKMUT.reknr as Account, " +
+            " GRTBK.oms25_0 as [Account description], " +
+            " GBKMUT.faktuurnr as [Our Ref], GBKMUT.docnumber as [Your Reference], GBKMUT.bkstnr_sub as [SO no.], GBKMUT.bdr_val as cantidad, GBKMUT.valcode as [Cur.], GBKMUT.oms25 as Description, GBKMUT.crdnr as [Vendor Number],  " +
+            " VENDOR.cmp_code , " +
+            " VENDOR.cmp_name as Vendor, " +
+            " GBKMUT.res_id, GBKMUT.DocAttachmentID " +
+            " FROM GBKMUT  " +
+            " join GRTBK on GBKMUT.reknr = GRTBK.reknr  " +
+            " join CICMPY as VENDOR on ltrim(GBKMUT.crdnr) = ltrim(VENDOR.cmp_code)  " +
+            "  WHERE (month(datum)=" + mes + ") AND (year(datum)=" + textBox2.Text + ") AND (GBKMUT.dagbknr In (160,165,200,310))  " +
+            " ORDER BY GBKMUT.bkstnr ";
+
+            
+            OdbcCommand DbCommand = DbConnection.CreateCommand();
+            DbCommand.CommandText = ssql;
+            OdbcDataReader dr = DbCommand.ExecuteReader();
+
+
+
+            
+
+            //string aNombreArchivo = botonExcel1.mRegresarNombre();
+
+            /*
+            string aNombreArchivo = textBox1.Text;
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + aNombreArchivo + ";Extended Properties='Excel 12.0 xml;HDR=YES;'");
 
             conn.Open();
@@ -164,10 +225,11 @@ namespace InterfazCi
 
             long xxx;
             xxx = 1000000;
+             * */
+          
 
-
-            System.Data.OleDb.OleDbDataReader dr;
-            dr = cmd.ExecuteReader();
+          //  System.Data.OleDb.OleDbDataReader dr;
+            //dr = DbCommand.ExecuteReader();
             Boolean noseguir = false;
             _RegPolizas.Clear();
             int ifolio = 0;
@@ -220,10 +282,17 @@ namespace InterfazCi
 
                         _Poliza.Concepto = dr["Vendor"].ToString().Trim();
 
-                        string ldia = lfecha.Substring(0, primerdiagonal);
 
+                        string ldia = lfecha.Substring(6, 2);
+                        string lanio = lfecha.Substring(0,4);
+                        string lmes = lfecha.Substring(4,2);
+                        /*
+                        string ldia = lfecha.Substring(0, primerdiagonal);
                         string lanio = lfecha.Substring(segundadiagonal + 1);
                         string lmes = lfecha.Substring(primerdiagonal + 1, segundadiagonal - (primerdiagonal + 1));
+                        */
+
+
                         _Poliza.FechaAlta = DateTime.Parse(ldia.ToString() + "/" + lmes.ToString() + "/" + lanio.ToString());
                         lfolio = _Poliza.Folio;
                         //_Poliza.TipoPol = 1; 
@@ -231,6 +300,21 @@ namespace InterfazCi
 
                     MovPoliza lRegmovto = new MovPoliza();
                     lRegmovto.cuenta = dr["Account"].ToString();
+
+
+                    decimal cantidad = decimal.Parse(dr["Cantidad"].ToString());
+                    if (cantidad < 0)
+                    {
+                        lRegmovto.credito = cantidad * -1;
+                        lRegmovto.debito = 0;
+                    }
+                    else
+                    {
+                        lRegmovto.credito = 0;
+                        lRegmovto.debito = cantidad;
+                    }
+                    /*
+
                     string credito = dr["Credit"].ToString();
                     if (credito == "")
                         lRegmovto.credito = 0;
@@ -242,8 +326,10 @@ namespace InterfazCi
                         lRegmovto.debito = 0;
                     else
                         lRegmovto.debito = decimal.Parse(debito);
+                     */
 
                     lRegmovto.concepto = dr["Your reference"].ToString();
+                    lRegmovto.sn = "";
                     _Poliza._RegMovtos.Add(lRegmovto);
                     _Poliza.sMensaje = "";
 
@@ -588,8 +674,12 @@ namespace InterfazCi
                 MessageBox.Show(error);
                 return;
             }
+            else
+            {
+                MessageBox.Show( _RegPolizas.Count() + " Polizas detectadas ");
+            }
             //mLlenarPolizasGranVision(); 
-            //mGrabarPolizas();
+            mGrabarPolizas();
         }
 
         public void mllenarcomboempresas ()
@@ -610,16 +700,41 @@ namespace InterfazCi
                 x.asignaform1(this);
                 x.Show();
             }
+            textBox1.Text = Properties.Settings.Default.DNS;
+            textBox2.Text = Properties.Settings.Default.ejercicio;
+
+
             if (Archivo != "")
                 botonExcel1.mSetNombre(Archivo);
-            //this.Text = " Interfaz Microplane Contabilidad " + this.ProductVersion;
-            this.Text = " Interfaz Gran Vision Contabilidad " + this.ProductVersion;
+            this.Text = " Interfaz Microplane Contabilidad " + this.ProductVersion;
+            //this.Text = " Interfaz Gran Vision Contabilidad " + this.ProductVersion;
+
+            if (this.Text.Substring(0, 34) == " Interfaz Microplane Contabilidad ")
+            {
+                comboBox1.Items.Add("Enero");
+                comboBox1.Items.Add("Febrero");
+                comboBox1.Items.Add("Marzo");
+                comboBox1.Items.Add("Abril");
+                comboBox1.Items.Add("Mayo");
+                comboBox1.Items.Add("Junio");
+                comboBox1.Items.Add("Julio");
+                comboBox1.Items.Add("Agosto");
+                comboBox1.Items.Add("Septiembre");
+                comboBox1.Items.Add("Octubre");
+                comboBox1.Items.Add("Noviembre");
+                comboBox1.Items.Add("Diciembre");
+                comboBox1.SelectedIndex = 0;
+            }
+
              
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Properties.Settings.Default.archivo = botonExcel1.mRegresarNombre();
+            Properties.Settings.Default.DNS=textBox1.Text;
+            Properties.Settings.Default.ejercicio = textBox2.Text;
+
             Properties.Settings.Default.Save();
             sesion.cierraEmpresa();
             sesion.finalizaConexion();
@@ -628,6 +743,26 @@ namespace InterfazCi
         private void botonExcel1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsSeparator(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
            
             
