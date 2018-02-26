@@ -51,7 +51,7 @@ namespace InterfazCi
             if (mValida())
             {
                 Properties.Settings.Default.server = txtServer.Text;
-                //Properties.Settings.Default.database = txtBD.Text;
+                Properties.Settings.Default.database = "GeneralesSQL";
                 Properties.Settings.Default.user = txtUser.Text;
                 Properties.Settings.Default.password = txtPass.Text;
 

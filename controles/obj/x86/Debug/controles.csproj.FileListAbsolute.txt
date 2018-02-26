@@ -1,9 +1,8 @@
 C:\fromgithub\InterfazCi\InterfazCi\InterfazCi\bin\Debug\controles.dll
-C:\fromgithub\InterfazCi\InterfazCi\InterfazCi\bin\Debug\controles.pdb
 C:\fromgithub\InterfazCi\InterfazCi\controles\obj\x86\Debug\controles.BotonExcel.resources
 C:\fromgithub\InterfazCi\InterfazCi\controles\obj\x86\Debug\controles.CICompanyList1.resources
 C:\fromgithub\InterfazCi\InterfazCi\controles\obj\x86\Debug\InterfazCi.ListaEmpresas.resources
 C:\fromgithub\InterfazCi\InterfazCi\controles\obj\x86\Debug\controles.csproj.GenerateResource.Cache
 C:\fromgithub\InterfazCi\InterfazCi\controles\obj\x86\Debug\controles.dll
 C:\fromgithub\InterfazCi\InterfazCi\controles\obj\x86\Debug\controles.pdb
-C:\fromgithub\InterfazCi\InterfazCi\controles\obj\x86\Debug\controles.csprojResolveAssemblyReference.cache
+C:\fromgithub\InterfazCi\InterfazCi\InterfazCi\bin\Debug\controles.pdb

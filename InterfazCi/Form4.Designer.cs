@@ -43,38 +43,35 @@
             // 
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 21);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 24);
+            this.label1.Size = new System.Drawing.Size(100, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "Server";
             // 
             // txtServer
             // 
-            this.txtServer.Location = new System.Drawing.Point(157, 21);
-            this.txtServer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtServer.Location = new System.Drawing.Point(118, 17);
             this.txtServer.Name = "txtServer";
-            this.txtServer.Size = new System.Drawing.Size(183, 22);
+            this.txtServer.Size = new System.Drawing.Size(138, 20);
             this.txtServer.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(17, 53);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(13, 43);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(133, 24);
+            this.label2.Size = new System.Drawing.Size(100, 20);
             this.label2.TabIndex = 5;
             this.label2.Text = "Base Datos";
             // 
             // txtBD
             // 
-            this.txtBD.Location = new System.Drawing.Point(157, 53);
-            this.txtBD.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBD.Enabled = false;
+            this.txtBD.Location = new System.Drawing.Point(118, 43);
             this.txtBD.Name = "txtBD";
-            this.txtBD.Size = new System.Drawing.Size(183, 22);
+            this.txtBD.Size = new System.Drawing.Size(138, 20);
             this.txtBD.TabIndex = 4;
             this.txtBD.Text = "GeneralesSQL";
             // 
@@ -82,47 +79,42 @@
             // 
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(17, 87);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(13, 71);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(133, 24);
+            this.label3.Size = new System.Drawing.Size(100, 20);
             this.label3.TabIndex = 7;
             this.label3.Text = "Usuario";
             // 
             // txtUser
             // 
-            this.txtUser.Location = new System.Drawing.Point(157, 87);
-            this.txtUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUser.Location = new System.Drawing.Point(118, 71);
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(183, 22);
+            this.txtUser.Size = new System.Drawing.Size(138, 20);
             this.txtUser.TabIndex = 6;
             // 
             // label4
             // 
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(17, 119);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(13, 97);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(133, 24);
+            this.label4.Size = new System.Drawing.Size(100, 20);
             this.label4.TabIndex = 9;
             this.label4.Text = "Password";
             // 
             // txtPass
             // 
-            this.txtPass.Location = new System.Drawing.Point(157, 119);
-            this.txtPass.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPass.Location = new System.Drawing.Point(118, 97);
             this.txtPass.Name = "txtPass";
             this.txtPass.PasswordChar = '*';
-            this.txtPass.Size = new System.Drawing.Size(183, 22);
+            this.txtPass.Size = new System.Drawing.Size(138, 20);
             this.txtPass.TabIndex = 8;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(17, 162);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(13, 132);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(324, 28);
+            this.button1.Size = new System.Drawing.Size(243, 23);
             this.button1.TabIndex = 10;
             this.button1.Text = "Test y Guardar";
             this.button1.UseVisualStyleBackColor = true;
@@ -130,10 +122,10 @@
             // 
             // Form4
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
-            this.ClientSize = new System.Drawing.Size(363, 214);
+            this.ClientSize = new System.Drawing.Size(272, 174);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtPass);
@@ -144,7 +136,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtServer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form4";

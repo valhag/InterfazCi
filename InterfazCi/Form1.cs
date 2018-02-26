@@ -33,6 +33,7 @@ namespace InterfazCi
                 Cadenaconexion = "data source =" + Properties.Settings.Default.server +
                 ";initial catalog =" + Properties.Settings.Default.database + " ;user id = " + Properties.Settings.Default.user +
                 "; password = " + Properties.Settings.Default.password + ";";
+              //  MessageBox.Show(Cadenaconexion);
                 Archivo = Properties.Settings.Default.archivo;
             }
         }
