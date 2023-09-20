@@ -61,6 +61,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base.Designer.cs">
+      <DependentUpon>Base.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SapToCont.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SapToCont.Designer.cs">
+      <DependentUpon>SapToCont.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generatxt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generatxt.Designer.cs">
+      <DependentUpon>Generatxt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gomar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +106,24 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegClass.cs" />
+    <Compile Include="Romero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Romero.Designer.cs">
+      <DependentUpon>Romero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TabPolizas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TabPolizas.Designer.cs">
+      <DependentUpon>TabPolizas.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Base.resx">
+      <DependentUpon>Base.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generatxt.resx">
+      <DependentUpon>Generatxt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Gomar.resx">
       <DependentUpon>Gomar.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,6 +146,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Romero.resx">
+      <DependentUpon>Romero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SapToCont.resx">
+      <DependentUpon>SapToCont.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TabPolizas.resx">
+      <DependentUpon>TabPolizas.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -122,12 +167,39 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="SDKCONTPAQNGLib">
       <Guid>{4A6A81F3-B2B3-448C-A557-A005091BE801}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>

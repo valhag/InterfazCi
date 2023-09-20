@@ -16,12 +16,13 @@ namespace InterfazCi
         public string uuid;
         public string guid;
         public string sn;
+        public string error="";
 
     }
     public class Poliza
     {
         public List<MovPoliza> _RegMovtos = new List<MovPoliza>();
-        public int Folio;
+        public long Folio;
         public DateTime  FechaAlta;
         public int Ejercicio;
         public int Periodo;
@@ -43,7 +44,7 @@ namespace InterfazCi
         public string Guid;
         public string Referencia;
 
-        public string sMensaje;
+        public string sMensaje="";
     }
     class RegClass
     {

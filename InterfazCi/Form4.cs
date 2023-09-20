@@ -14,6 +14,7 @@ namespace InterfazCi
     {
         Form1 y = new Form1();
         Gomar z = new Gomar();
+        Generatxt zz = new Generatxt();
 
         public void asignaform1(Form1 ay)
         {
@@ -23,6 +24,12 @@ namespace InterfazCi
         {
             z = ay;
         }
+
+        public void asignaformGeneratxt(Generatxt ay)
+        {
+            zz = ay;
+        }
+
         public Form4()
         {
             InitializeComponent();
@@ -58,11 +65,11 @@ namespace InterfazCi
                 Properties.Settings.Default.Save();
 
                 this.Close();
-                y.Cadenaconexion = "data source =" + Properties.Settings.Default.server +
+                zz.Cadenaconexion = "data source =" + Properties.Settings.Default.server +
                 ";initial catalog =" + Properties.Settings.Default.database + " ;user id = " + Properties.Settings.Default.user +
                 "; password = " + Properties.Settings.Default.password + ";";
-                y.mllenarcomboempresas();
-                y.Visible = true;
+                zz.mllenarcomboempresas();
+                zz.Visible = true;
             }
             else
                 MessageBox.Show("Valores de conexion incorrectos");

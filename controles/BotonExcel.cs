@@ -11,6 +11,7 @@ namespace controles
 {
     public partial class BotonExcel : UserControl
     {
+        public int tipo = 0;
         public BotonExcel()
         {
             InitializeComponent();
@@ -24,14 +25,36 @@ namespace controles
         {
             textBox1.Text = aNombre;
         }
+
+        public void mSetEtiqueta(string aNombre)
+        {
+            label1.Text = aNombre;
+        }
+
+        public void mSetTipo(int aTipo)
+        {
+            tipo = aTipo;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.OpenFileDialog fbDialog;
             fbDialog = new System.Windows.Forms.OpenFileDialog();
-            fbDialog.DefaultExt = "xls,xlsx";
 
-            
-            fbDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+
+            switch (tipo)
+            {
+                case 0:
+                fbDialog.DefaultExt = "xls,xlsx";
+                fbDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+                break;
+                case 1:
+                fbDialog.DefaultExt = "txt";
+                fbDialog.Filter = "Txt Files|*.txt";
+                break;
+
+            }
+
             if (fbDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                    textBox1.Text = fbDialog.FileName; 

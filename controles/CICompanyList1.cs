@@ -14,11 +14,21 @@ namespace controles
     {
         string Cadenaconexion="";
         public string aliasbdd = "";
+        public event EventHandler SelectedItem;
+        public ComboBox micombo = new ComboBox();
+
+
         public CICompanyList1(string aCadena)
         {
             InitializeComponent();
+            
             Cadenaconexion = aCadena;
+
         }
+
+      
+
+
         public CICompanyList1()
         {
             InitializeComponent();
@@ -26,9 +36,20 @@ namespace controles
 
         private void CICompanyList1_Load(object sender, EventArgs e)
         {
-            
+            comboBox1.SelectedIndexChanged += new EventHandler(OnSelectedItem);
         }
 
+        public void OnSelectedItem(object sender, EventArgs e)
+        {
+            // Delegate the event to the caller
+            if (SelectedItem != null)
+                SelectedItem(this.comboBox1, e);
+        }
+
+        public void mrecorrertxt(int left=0)
+        {
+            comboBox1.Left = left;
+        }
         public void Populate(string aCadena)
         {
             Cadenaconexion = aCadena;
@@ -78,12 +99,7 @@ namespace controles
             }
         }
 
-        public class ComboboxItem
-        {
-            public string Text { get; set; }
-            public string Value { get; set; }
-            public override string ToString() { return Text; }
-        }
+        
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -97,6 +113,16 @@ namespace controles
                 DataRowView selectedCar = (DataRowView)cmb.SelectedItem;
                 aliasbdd = selectedCar.Row[1].ToString();
             }
+
+            
+
         }
+
+        /*public class ComboboxItem
+        {
+            public string Text { get; set; }
+            public string Value { get; set; }
+            public override string ToString() { return Text; }
+        }*/
     }
 }

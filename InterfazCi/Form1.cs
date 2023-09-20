@@ -64,8 +64,8 @@ namespace InterfazCi
             dr = cmd.ExecuteReader();
             Boolean noseguir = false;
             _RegPolizas.Clear();
-            int ifolio=0;
-            int lfolio = -1;
+            long ifolio=0;
+            long lfolio = -1;
             if (dr.HasRows)
                 while (noseguir == false)
                 {
@@ -233,8 +233,8 @@ namespace InterfazCi
             //dr = DbCommand.ExecuteReader();
             Boolean noseguir = false;
             _RegPolizas.Clear();
-            int ifolio = 0;
-            int lfolio = -1;
+            long ifolio = 0;
+            long lfolio = -1;
             if (dr.HasRows)
                 while (noseguir == false)
                 {
@@ -423,7 +423,7 @@ namespace InterfazCi
                         _Poliza.FechaAlta = DateTime.Parse(ldia.ToString() + "/" + lmes.ToString() + "/" + lanio.ToString());
 
                             //_Poliza.FechaAlta = DateTime.Parse(dr[6].ToString());
-                            lfolio = _Poliza.Folio;
+                            //lfolio = _Poliza.Folio;
                             //_Poliza.TipoPol = int.Parse(dr["TIPO POLIZA"].ToString());
                             _Poliza.TipoPol = int.Parse(dr[4].ToString());
                         }
@@ -526,7 +526,7 @@ namespace InterfazCi
                 string lfecha = x.FechaAlta.ToShortDateString();
                 //poliza.Fecha = lfecha;
                 //poliza.Fecha = Convert.ToDateTime("01/11/2014");
-                poliza.Numero = x.Folio;
+                //poliza.Numero = x.Folio;
                 poliza.Concepto = x.Concepto;
 
 

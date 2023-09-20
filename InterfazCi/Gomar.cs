@@ -18,6 +18,7 @@ namespace InterfazCi
         public string Archivo = "";
         public List<Poliza> _RegPolizas = new List<Poliza>();
         public Poliza _Poliza = new Poliza();
+        public DataTable DatosReporte = null;
         public Gomar()
         {
             InitializeComponent();
@@ -62,8 +63,8 @@ namespace InterfazCi
             dr = cmd.ExecuteReader();
             Boolean noseguir = false;
             _RegPolizas.Clear();
-            int ifolio=0;
-            int lfolio = -1;
+            long ifolio=0;
+            long lfolio = -1;
             if (dr.HasRows)
                 while (noseguir == false)
                 {
@@ -734,7 +735,7 @@ namespace InterfazCi
                             _Poliza.Folio = ifolio;
                             _Poliza.FechaAlta = DateTime.Parse(dr["FECHA POLIZA"].ToString());
                             //_Poliza.FechaAlta = DateTime.Parse(dr[6].ToString());
-                            lfolio = _Poliza.Folio;
+                            //lfolio = _Poliza.Folio;
                             //_Poliza.TipoPol = int.Parse(dr["TIPO POLIZA"].ToString());
                             _Poliza.TipoPol = int.Parse(dr[4].ToString());
                         }
@@ -838,6 +839,9 @@ namespace InterfazCi
                 poliza.Tipo = SDKCONTPAQNGLib.ETIPOPOLIZA.TIPO_EGRESOS;
                 poliza.Tipo = (SDKCONTPAQNGLib.ETIPOPOLIZA)x.TipoPol;
                 poliza.Numero = poliza.getUltimoNumero(x.FechaAlta.Year, x.FechaAlta.Month, poliza.Tipo);
+
+
+                poliza.Concepto = x.Folio.ToString();
                 //poliza.Tipo = (SDKCONTPAQNGLib.ETIPOPOLIZA.
 
                 poliza.SistOrigen = SDKCONTPAQNGLib.ESISTORIGEN.ORIG_CONTPAQNG;
@@ -864,8 +868,8 @@ namespace InterfazCi
                 foreach (MovPoliza y in x._RegMovtos)
                 {
                     Cuenta.setSesion(sesion);
-                    
 
+//                    string lcuenta = mBuscaCuenta(y.cuenta);
             
                     Cuenta.buscaPorCodigo(y.cuenta.Trim());
 
@@ -1028,6 +1032,9 @@ namespace InterfazCi
             
         }
 
+
+        
+
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -1111,10 +1118,54 @@ namespace InterfazCi
         {
 
         }
-           
-            
-                
-        
+
+        public void mTraerInformacionComercial(StringBuilder lquery, string mEmpresa)
+        {
+            SqlConnection _conexion1 = new SqlConnection();
+            //            rutadestino = "c:\\compacw\\empresas\\adtala2";
+            string rutadestino = mEmpresa;
+
+            string sempresa = rutadestino.Substring(rutadestino.LastIndexOf("\\") + 1);
+
+            string server = Properties.Settings.Default.server;
+            string user = Properties.Settings.Default.user;
+            string pwd = Properties.Settings.Default.password;
+            //sempresa = GetSettingValueFromAppConfigForDLL("empresa");
+            //string lruta3 = obc.ToString();
+            string lruta4 = @rutadestino;
+            _conexion1 = new SqlConnection();
+            string Cadenaconexion1 = "data source =" + server + ";initial catalog = " + sempresa + ";user id = " + user + "; password = " + pwd + ";";
+            _conexion1.ConnectionString = Cadenaconexion1;
+            _conexion1.Open();
+
+
+
+
+            DataSet ds = new DataSet();
+
+            string lsql = lquery.ToString();
+            SqlDataAdapter mySqlDataAdapter = new SqlDataAdapter(lsql, _conexion1);
+
+
+
+            //mySqlDataAdapter.SelectCommand.Connection = _conexion1;
+
+            //mySqlDataAdapter.SelectCommand.Connection = _conexion1;
+            //mySqlDataAdapter.SelectCommand.CommandText = lsql;
+
+            mySqlDataAdapter.Fill(ds);
+
+            DatosReporte = ds.Tables[0];
+            //if (ds.Tables.Count > 1)
+              //  DatosDetalle = ds.Tables[1];
+            _conexion1.Close();
+
+        }
+
+        private void ciCompanyList11_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
