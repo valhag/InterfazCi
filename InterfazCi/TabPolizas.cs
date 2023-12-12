@@ -26,6 +26,8 @@ namespace InterfazCi
 
         private void TabPolizas_Load(object sender, EventArgs e)
         {
+
+            //ciCompanyList12.Visible = false;
             base.Controls["TabControl1"].Controls["TabPage1"].Controls.Add(botonExcel1);
             botonExcel1.Top = 60;
             botonExcel1.Left = 0;
@@ -124,7 +126,7 @@ namespace InterfazCi
 
 
             while (line != null)
-            {
+             {
                 line = sr.ReadLine();
                 if (lentrar == 0)
                 {
@@ -144,14 +146,43 @@ namespace InterfazCi
                 if (laux.Count() == 1)
                 {
                     // nueva poliza
-                    if (_Poliza._RegMovtos.Count() == 0 || _Poliza._RegMovtos.Count() == 1)
-                        _Poliza.sMensaje = "La poliza numero " + _Poliza.Folio + " tiene " + _Poliza._RegMovtos.Count() + " movimientos";
-                    _RegPolizas.Add(_Poliza);
-                    lencabezado = 1;
+                    if (_Poliza.sMensaje != "No Procesar")
+                    {
+                        if (_Poliza._RegMovtos.Count() == 0 || _Poliza._RegMovtos.Count() == 1)
+                            _Poliza.sMensaje = "La poliza numero " + _Poliza.Folio + " tiene " + _Poliza._RegMovtos.Count() + " movimientos";
+                        _RegPolizas.Add(_Poliza);
+                    }
+                                lencabezado = 1;
+                            
                     _Poliza = new Poliza();
                 }
                 else
                 {
+                    if (lencabezado==99)
+                    {
+                        lcuenta = laux[20];
+                        limporte1 = laux[22];
+                        lRegmovto = new MovPoliza();
+                        lRegmovto.cuenta = lcuenta;
+
+                        criterio = " cuentasap = '" + lcuenta + "'";
+                        var foundRows = table.Select(criterio);
+
+                        if (foundRows.Length > 0)
+                            lRegmovto.cuenta = foundRows[0][2].ToString();
+                        else
+                        {
+                            // no esta sincronizado
+                            lRegmovto.cuenta = lRegmovto.cuenta;
+                            lRegmovto.error = "La cuenta " + lRegmovto.cuenta + " no esta sincronizada";
+                        }
+                        if (decimal.Parse(limporte1) < 0)
+                            lRegmovto.debito = decimal.Parse(limporte1) * -1;
+                        else
+                            lRegmovto.credito = decimal.Parse(limporte1);
+                        _Poliza._RegMovtos.Add(lRegmovto);
+
+                    }
 
                     if (lencabezado == 0)
                     {
@@ -176,7 +207,7 @@ namespace InterfazCi
                             lcuenta = laux[3];
                             limporte1 = laux[10];
                             lRegmovto.cuenta = lcuenta;
-                            lRegmovto.cuenta = "203001000";
+                            lRegmovto.cuenta = "203001001";
                             /*
                             criterio = " cuentasap = '" + lcuenta + "'";
                             var foundRows = table.Select(criterio);
@@ -202,25 +233,30 @@ namespace InterfazCi
                             {
                                 lcuenta = laux[20];
                                 limporte1 = laux[22];
-                                lRegmovto = new MovPoliza();
-                                lRegmovto.cuenta = lcuenta;
-
-                                criterio = " cuentasap = '" + lcuenta + "'";
-                                var foundRows = table.Select(criterio);
-
-                                if (foundRows.Length > 0)
-                                    lRegmovto.cuenta = foundRows[0][2].ToString();
+                                if (decimal.Parse(limporte1) == 0)
+                                    lencabezado = 99;
                                 else
                                 {
-                                    // no esta sincronizado
-                                    lRegmovto.cuenta = lRegmovto.cuenta;
-                                    lRegmovto.error = "La cuenta " + lRegmovto.cuenta + " no esta sincronizada";
+                                    lRegmovto = new MovPoliza();
+                                    lRegmovto.cuenta = lcuenta;
+
+                                    criterio = " cuentasap = '" + lcuenta + "'";
+                                    var foundRows = table.Select(criterio);
+
+                                    if (foundRows.Length > 0)
+                                        lRegmovto.cuenta = foundRows[0][2].ToString();
+                                    else
+                                    {
+                                        // no esta sincronizado
+                                        lRegmovto.cuenta = lRegmovto.cuenta;
+                                        lRegmovto.error = "La cuenta " + lRegmovto.cuenta + " no esta sincronizada";
+                                    }
+                                    if (decimal.Parse(limporte1) < 0)
+                                        lRegmovto.debito = decimal.Parse(limporte1) * -1;
+                                    else
+                                        lRegmovto.credito = decimal.Parse(limporte1);
+                                    _Poliza._RegMovtos.Add(lRegmovto);
                                 }
-                                if (decimal.Parse(limporte1) < 0)
-                                    lRegmovto.debito = decimal.Parse(limporte1) * -1;
-                                else
-                                    lRegmovto.credito = decimal.Parse(limporte1);
-                                _Poliza._RegMovtos.Add(lRegmovto);
                             }
 
 
@@ -446,7 +482,7 @@ namespace InterfazCi
                         lfecha = laux[9];
                         lfolio = laux[2];
                         
-                        if (lfolio == "100000014")
+                        if (lfolio == "1500000082")
                             lfolio = laux[2];
                         if (lfolio == "Mon." || lfolio == "MXN" || lfolio == "")
                             ltipo = laux[8];
@@ -466,8 +502,11 @@ namespace InterfazCi
                                     lencabezado = -2;
                                 lencabezado = 0;
                             _Poliza.FechaAlta = DateTime.Parse(lfecha, ci);
+                            
                             _Poliza.Folio = long.Parse(lfolio);
 
+                            if (laux[11].Contains("Documento de compensa")== true)
+                                _Poliza.sMensaje = "No Procesar"; 
                             switch (ltipo)
                             {
                                 case "DZ": _Poliza.TipoPol= 1; break;
